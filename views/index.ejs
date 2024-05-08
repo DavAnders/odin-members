@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Board</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Message Board</h1>
+      <% if (user) { %>
+      <p>Hello, <%= user.full_name %>! <a href="/users/logout">Logout</a></p>
+      <% if (user.admin) { %>
+      <a href="/admin">Admin Panel</a>
+      <% } %>
+      <a href="/messages/new">Create a New Message</a>
+      <% } else { %>
+      <a href="/users/login">Login</a>
+      <a href="/users/register">Sign Up</a>
+      <% } %>
+    </header>
+    <main>
+      <% messages.forEach(function(message) { %>
+      <div class="message">
+        <h2><%= message.title %></h2>
+        <p><%= message.text %></p>
+        <% if (user && user.admin) { %>
+        <a href="/messages/delete/<%= message._id %>">Delete</a>
+        <% } %>
+      </div>
+      <% }); %>
+    </main>
+  </body>
+</html>
