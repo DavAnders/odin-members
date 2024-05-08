@@ -28,6 +28,7 @@ exports.loginUser = (passport) => (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/users/login",
-    failureFlash: true,
+    failureFlash: "Invalid email or password. Please try again.",
+    successFlash: "Welcome back!",
   })(req, res, next);
 };
