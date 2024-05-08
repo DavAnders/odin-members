@@ -9,11 +9,17 @@
   <body>
     <header>
       <h1>Welcome to the Message Board</h1>
-      <% if (user) { %>
-      <p>Hello, <%= user.full_name %>! <a href="/users/logout">Logout</a></p>
-      <% if (user.admin) { %>
-      <a href="/admin">Admin Panel</a>
-      <% } %>
+      <% if (success_msg) { %>
+      <div class="alert alert-success"><%= success_msg %></div>
+      <% } %> <% if (error_msg) { %>
+      <div class="alert alert-danger"><%= error_msg %></div>
+      <% } %> <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+      <% } %> <% if (user) { %>
+      <p>
+        Hello, <%= user.full_name %>! <a href="/users/join">Join Secret Club</a>
+        <a href="/users/logout">Logout</a>
+      </p>
       <a href="/messages/new">Create a New Message</a>
       <% } else { %>
       <a href="/users/login">Login</a>
@@ -25,7 +31,12 @@
       <div class="message">
         <h2><%= message.title %></h2>
         <p><%= message.text %></p>
-        <% if (user && user.admin) { %>
+        <% if (isMember) { %>
+        <p>
+          Posted by: <%= message.author.full_name %> on <%= new
+          Date(message.timestamp).toLocaleDateString() %>
+        </p>
+        <% } %> <% if (user && user.admin) { %>
         <a href="/messages/delete/<%= message._id %>">Delete</a>
         <% } %>
       </div>

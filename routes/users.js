@@ -27,4 +27,10 @@ router.get("/logout", (req, res) => {
   });
 });
 
+router.get("/join", (req, res) => {
+  res.render("join");
+});
+
+router.post("/join", expressAsyncHandler(usersController.joinClub));
+
 module.exports = router;
